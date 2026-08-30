@@ -2,7 +2,7 @@
 
 A local Home Assistant custom integration for the **SDR Engineering HeatMeister** using its HTTP API. MQTT is not required.
 
-Current version: **0.2.3**
+Current version: **0.2.5**
 
 ## Features
 
