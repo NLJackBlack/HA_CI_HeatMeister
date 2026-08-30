@@ -1,0 +1,30 @@
+{
+  "title": "HeatMeister",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Add HeatMeister",
+        "description": "Enter the local IP address or hostname of your HeatMeister.",
+        "data": {
+          "host": "IP address / hostname"
+        },
+        "data_description": {
+          "host": "For example: 192.168.68.116"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Unable to connect to the HeatMeister. Check the IP address and network connection."
+    },
+    "abort": {
+      "already_configured": "This HeatMeister is already configured."
+    }
+  },
+  "entity": {
+    "fan": {
+      "heatmeister": {
+        "name": "Fan"
+      }
+    }
+  }
+}
