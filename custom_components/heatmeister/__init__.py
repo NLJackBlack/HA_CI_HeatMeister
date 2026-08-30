@@ -27,7 +27,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     firmware_coordinator = HeatMeisterFirmwareCoordinator(hass, session)
     # An unavailable Internet endpoint must not stop local HeatMeister setup.
-    await firmware_coordinator.async_refresh()
+    try:
+        await firmware_coordinator.async_refresh()
+    except Exception:  # Defensive: external firmware check must never block local setup.
+        pass
 
     entry.runtime_data = HeatMeisterRuntimeData(coordinator, firmware_coordinator)
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)

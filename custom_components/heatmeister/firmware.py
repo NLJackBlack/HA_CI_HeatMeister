@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import timedelta
+import logging
 import re
 
 import aiohttp
@@ -9,6 +10,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .const import FIRMWARE_CHECK_INTERVAL_HOURS, FIRMWARE_VERSION_URL
+
+_LOGGER = logging.getLogger(__name__)
 
 
 def normalize_version(value: str | None) -> str | None:
@@ -53,7 +56,7 @@ class HeatMeisterFirmwareCoordinator(DataUpdateCoordinator[str | None]):
 
     async def _async_update_data(self) -> str | None:
         headers = {
-            "User-Agent": "Mozilla/5.0 (Home Assistant HeatMeister/0.2.7)",
+            "User-Agent": "Mozilla/5.0 (Home Assistant HeatMeister/0.2.8)",
             "Accept": "text/plain,*/*",
         }
 
