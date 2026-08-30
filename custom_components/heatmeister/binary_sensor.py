@@ -50,16 +50,23 @@ class HeatMeisterNewFirmwareAvailable(HeatMeisterEntity, BinarySensorEntity):
 
     @property
     def extra_state_attributes(self):
-        return {
-            "installed_version": normalize_version(self.coordinator.data.get("FW_VERSION")),
+        status = "ok" if (
+            self.firmware_coordinator.last_update_success
+            and self.firmware_coordinator.data is not None
+        ) else "error"
+
+        attributes = {
+            "installed_version": normalize_version(
+                self.coordinator.data.get("FW_VERSION")
+            ),
             "latest_version": normalize_version(self.firmware_coordinator.data),
             "check_interval_hours": 12,
+            "firmware_check_status": status,
         }
 
-    @property
-    def available(self) -> bool:
-        return (
-            super().available
-            and self.firmware_coordinator.last_update_success
-            and self.firmware_coordinator.data is not None
-        )
+        if status == "error" and self.firmware_coordinator.last_error:
+            attributes["firmware_check_error"] = (
+                self.firmware_coordinator.last_error
+            )
+
+        return attributes

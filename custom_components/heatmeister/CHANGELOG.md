@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.7
+
+- Added explicit `User-Agent` and `Accept` headers to the SDR Engineering firmware request to prevent HTTP 403 responses.
+- Firmware comparison continues to use only numeric dotted version components.
+- Added `firmware_check_status` attribute to `New firmware available`.
+- Added `firmware_check_error` attribute when the remote check fails.
+- A failed remote firmware check no longer forces the binary sensor to `unavailable`; the state becomes unknown until a successful check.
+- Local HeatMeister control remains independent of the external firmware endpoint.
+
 ## 0.2.6
 
 - Firmware comparison now uses only the numeric version components; prefixes such as `v` or `V` are ignored.

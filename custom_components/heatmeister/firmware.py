@@ -39,26 +39,46 @@ def version_tuple(value: str | None) -> tuple[int, ...] | None:
 
 
 class HeatMeisterFirmwareCoordinator(DataUpdateCoordinator[str | None]):
-    """Check SDR Engineering for the latest HeatMeister firmware."""
+    """Fetch the latest firmware version from SDR Engineering every 12 hours."""
 
     def __init__(self, hass: HomeAssistant, session: aiohttp.ClientSession) -> None:
         super().__init__(
             hass,
-            logger=__import__("logging").getLogger(__name__),
+            _LOGGER,
             name="HeatMeister firmware",
             update_interval=timedelta(hours=FIRMWARE_CHECK_INTERVAL_HOURS),
         )
         self._session = session
+        self.last_error: str | None = None
 
     async def _async_update_data(self) -> str | None:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Home Assistant HeatMeister/0.2.7)",
+            "Accept": "text/plain,*/*",
+        }
+
         try:
-            async with self._session.get(FIRMWARE_VERSION_URL, timeout=10) as response:
+            async with self._session.get(
+                FIRMWARE_VERSION_URL,
+                headers=headers,
+                timeout=aiohttp.ClientTimeout(total=10),
+            ) as response:
                 response.raise_for_status()
                 body = (await response.text()).strip()
-        except (aiohttp.ClientError, TimeoutError) as err:
-            raise UpdateFailed(f"Unable to check latest HeatMeister firmware: {err}") from err
 
-        match = re.search(r"[vV]?\d+(?:\.\d+)+", body)
-        if not match:
-            raise UpdateFailed("Firmware endpoint did not return a recognizable version")
-        return normalize_version(match.group(0))
+        except (aiohttp.ClientError, TimeoutError) as err:
+            self.last_error = str(err)
+            raise UpdateFailed(
+                f"Unable to check latest HeatMeister firmware: {err}"
+            ) from err
+
+        latest_version = normalize_version(body)
+
+        if latest_version is None:
+            self.last_error = (
+                "Firmware endpoint did not return a recognizable numeric version"
+            )
+            raise UpdateFailed(self.last_error)
+
+        self.last_error = None
+        return latest_version
