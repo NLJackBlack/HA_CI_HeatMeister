@@ -1,0 +1,14 @@
+{
+  "domain": "heatmeister",
+  "name": "HeatMeister",
+  "version": "0.2.2",
+  "documentation": "https://github.com/NLJackBlack/HA_CI_heatmeister",
+  "config_flow": true,
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "requirements": [],
+  "issue_tracker": "https://github.com/NLJackBlack/HA_CI_heatmeister/issues",
+  "codeowners": [
+    "@NLJackBlack"
+  ]
+}
