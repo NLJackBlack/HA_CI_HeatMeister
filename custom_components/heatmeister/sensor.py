@@ -19,6 +19,7 @@ SENSORS=(
  Desc("TEMP_DELTA","Delta temperature",UnitOfTemperature.CELSIUS,SensorDeviceClass.TEMPERATURE,SensorStateClass.MEASUREMENT,float),
  Desc("TEMP_INLET_RATE","Inlet temperature rate","°C/min",None,SensorStateClass.MEASUREMENT,float),
  Desc("FAN_SPEED","Fan speed","%",None,SensorStateClass.MEASUREMENT,float),
+ Desc("FW_VERSION","Firmware version",None,None,None,lambda v: str(v).removeprefix("v").removeprefix("V"),True),
  Desc("WIFI_TEST_RSSI","Wi-Fi signal",SIGNAL_STRENGTH_DECIBELS_MILLIWATT,SensorDeviceClass.SIGNAL_STRENGTH,SensorStateClass.MEASUREMENT,int,True),
  Desc("TEMP_CHIP","Chip temperature",UnitOfTemperature.CELSIUS,SensorDeviceClass.TEMPERATURE,SensorStateClass.MEASUREMENT,float,True),
  Desc("RUNTIME","Runtime",UnitOfTime.SECONDS,SensorDeviceClass.DURATION,SensorStateClass.TOTAL_INCREASING,int,True),

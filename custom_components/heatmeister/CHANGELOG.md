@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.3
+
+- Added **Firmware version** as a diagnostic sensor.
+- Firmware values now omit a leading `v`/`V`, so `v2.8.8` is displayed as `2.8.8`.
+- Removed the separate Home Assistant **Fan** entity/platform.
+- Fan control remains available through the dedicated **Fan speed** slider and **Fan mode** selector (Auto / Manual / Boost).
+- Updated README and integration documentation.
+
 ## 0.2.2
 
 - Repackaged repository for HACS compatibility.
