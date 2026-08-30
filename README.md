@@ -4,7 +4,7 @@ Custom Home Assistant integration for SDR Engineering HeatMeister using its loca
 
 ## Version
 
-**0.2.6**
+**0.2.7**
 
 ## Features
 
@@ -36,3 +36,27 @@ If the external endpoint cannot be reached, local HeatMeister functionality cont
 Add `https://github.com/NLJackBlack/HA_CI_HeatMeister` as a custom HACS repository of type **Integration**, install HeatMeister, restart Home Assistant, then add the integration from **Settings -> Devices & services**.
 
 Version comparison uses only the numeric dotted value. For example, `v2.8.8`, `V2.8.8` and `2.8.8` are all treated as `2.8.8`.
+
+## Firmware check behavior in 0.2.7
+
+The firmware request sends explicit HTTP headers, including a browser-compatible
+`User-Agent`, because the SDR Engineering endpoint may return HTTP 403 for
+requests without an accepted user agent.
+
+Firmware comparison uses only the numeric dotted version:
+
+- `v2.8.8` -> `2.8.8`
+- `V2.8.8` -> `2.8.8`
+- `2.8.8` -> `2.8.8`
+
+The `New firmware available` binary sensor exposes:
+
+- `installed_version`
+- `latest_version`
+- `check_interval_hours`
+- `firmware_check_status`
+- `firmware_check_error` when the remote check fails
+
+A failed external firmware check no longer forces the entity to become
+`unavailable`. Its firmware state becomes unknown until a successful check,
+while local HeatMeister functionality continues to work.
