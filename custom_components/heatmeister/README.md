@@ -1,67 +1,38 @@
-# HeatMeister for Home Assistant
+# HeatMeister Home Assistant Integration
 
-A local Home Assistant custom integration for the **SDR Engineering HeatMeister** using its HTTP API. MQTT is not required.
+Custom Home Assistant integration for SDR Engineering HeatMeister using its local HTTP API.
 
-Current version: **0.2.3**
+## Version
+
+**0.2.6**
 
 ## Features
 
-- Local HTTP communication with `/getStatus` and `/setStatus`
-- One Home Assistant device per HeatMeister
-- Dedicated **Fan speed** slider (0-100%)
-- Dedicated **Fan mode** selector: Auto / Manual / Boost
-- No separate binary-style Fan entity; fan control is handled by the slider and mode selector
-- Boost switch
-- Room temperature control switch
-- Target temperature slider
-- Ambient, inlet, outlet and delta temperature sensors
-- **Firmware version** diagnostic sensor; values such as `v2.8.8` are shown as `2.8.8`
-- Wi-Fi, runtime and system diagnostics
-- Dutch and English setup flow
-- Single coordinated status poll every 30 seconds
+- Local `/getStatus` polling every 30 seconds
+- Fan speed slider (0-100%)
+- Fan mode selector: Auto / Manual / Boost
+- Boost and room temperature control switches
+- Target temperature control
+- Temperature and diagnostic sensors
+- Firmware version sensor without the leading `v`
+- **New firmware available** binary sensor
+- Checks SDR Engineering every **12 hours** for the latest firmware
+- HACS-compatible repository structure
 
-## Install with HACS
+## Firmware update check
 
-1. Open **HACS** in Home Assistant.
-2. Open the menu and choose **Custom repositories**.
-3. Add `https://github.com/NLJackBlack/HA_CI_heatmeister`.
-4. Select category **Integration**.
-5. Install **HeatMeister**.
-6. Restart Home Assistant.
-7. Go to **Settings -> Devices & services -> Add integration -> HeatMeister**.
-8. Enter the local IP address or hostname of your HeatMeister.
+Every 12 hours the integration reads:
 
-Example: `192.168.68.116`.
+`https://www.sdr-engineering.nl/dl_firmware/heatbooster/latest/fwversion`
 
-## Controls
+The returned version is compared with `FW_VERSION` from the local HeatMeister `/getStatus` response. A leading `v` is ignored for comparison.
 
-### Fan speed
+The entity **New firmware available** is `on` only when the remote version is newer than the installed version. It also exposes `installed_version`, `latest_version`, and `check_interval_hours` attributes.
 
-The **Fan speed** entity is a 0-100% slider. Changing the slider deliberately sets `FAN_CONTROLMODE=1` (Manual), disables Boost and sends the selected `FAN_SPEED`.
+If the external endpoint cannot be reached, local HeatMeister functionality continues normally; only this binary sensor is temporarily unavailable.
 
-### Fan mode
+## HACS installation
 
-Use **Fan mode** to select:
+Add `https://github.com/NLJackBlack/HA_CI_HeatMeister` as a custom HACS repository of type **Integration**, install HeatMeister, restart Home Assistant, then add the integration from **Settings -> Devices & services**.
 
-- **Auto**
-- **Manual**
-- **Boost**
-
-### Firmware version
-
-The integration reads `FW_VERSION` from `/getStatus`. A leading `v` is removed for display, for example:
-
-- API value: `v2.8.8`
-- Home Assistant value: `2.8.8`
-
-## Manual installation
-
-Copy `custom_components/heatmeister` to the `custom_components` directory of your Home Assistant configuration and restart Home Assistant.
-
-## Repository structure
-
-This repository follows the HACS integration layout: the integration is located at `custom_components/heatmeister`, while `hacs.json`, the root README and changelog are located at repository root.
-
-## Support
-
-Use the GitHub issue tracker: https://github.com/NLJackBlack/HA_CI_heatmeister/issues
+Version comparison uses only the numeric dotted value. For example, `v2.8.8`, `V2.8.8` and `2.8.8` are all treated as `2.8.8`.

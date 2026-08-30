@@ -14,7 +14,7 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    coordinator = entry.runtime_data
+    coordinator = entry.runtime_data.coordinator
     async_add_entities([
         HeatMeisterFanSpeed(coordinator),
         HeatMeisterSetpoint(coordinator),

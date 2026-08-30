@@ -17,7 +17,7 @@ async def async_setup_entry(
     entry: ConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    async_add_entities([HeatMeisterFanMode(entry.runtime_data)])
+    async_add_entities([HeatMeisterFanMode(entry.runtime_data.coordinator)])
 
 
 class HeatMeisterFanMode(HeatMeisterEntity, SelectEntity):

@@ -6,7 +6,7 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from .entity import HeatMeisterEntity
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities: AddConfigEntryEntitiesCallback) -> None:
-    c=entry.runtime_data; async_add_entities([HeatMeisterBoostSwitch(c), HeatMeisterAmbientControlSwitch(c)])
+    c=entry.runtime_data.coordinator; async_add_entities([HeatMeisterBoostSwitch(c), HeatMeisterAmbientControlSwitch(c)])
 
 class HeatMeisterBoostSwitch(HeatMeisterEntity, SwitchEntity):
     _attr_name="Boost"

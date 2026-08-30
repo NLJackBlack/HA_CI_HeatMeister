@@ -29,7 +29,7 @@ SENSORS=(
  Desc("HEAP_FREE","Free heap","B",SensorDeviceClass.DATA_SIZE,SensorStateClass.MEASUREMENT,int,True),
 )
 async def async_setup_entry(hass:HomeAssistant,entry:ConfigEntry,async_add_entities:AddConfigEntryEntitiesCallback)->None:
-    async_add_entities(HeatMeisterSensor(entry.runtime_data,d) for d in SENSORS)
+    async_add_entities(HeatMeisterSensor(entry.runtime_data.coordinator,d) for d in SENSORS)
 class HeatMeisterSensor(HeatMeisterEntity,SensorEntity):
     def __init__(self,c,d:Desc):
         super().__init__(c); self.d=d; self._attr_name=d.name; self._attr_unique_id=f"{self._device_identifier}_{d.key.lower()}"; self._attr_native_unit_of_measurement=d.unit; self._attr_device_class=d.device_class; self._attr_state_class=d.state_class
