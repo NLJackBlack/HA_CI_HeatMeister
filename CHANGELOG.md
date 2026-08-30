@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.4
+
+- Something with commits....
+  
 ## 0.2.3
 
 - Added **Firmware version** as a diagnostic sensor.
