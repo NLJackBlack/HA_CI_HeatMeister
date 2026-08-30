@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.8
+
+- Fixed startup failure caused by `_LOGGER` not being defined in `firmware.py`.
+- Added the missing Python `logging` setup for the firmware coordinator.
+- Updated the firmware request User-Agent to 0.2.8.
+- Made the initial external firmware check defensive so it can never prevent the local HeatMeister integration from starting.
+- Retained numeric-only firmware version comparison and the 12-hour update check.
+
 ## 0.2.7
 
 - Added explicit `User-Agent` and `Accept` headers to the SDR Engineering firmware request to prevent HTTP 403 responses.

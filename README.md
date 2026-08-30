@@ -4,7 +4,7 @@ Custom Home Assistant integration for SDR Engineering HeatMeister using its loca
 
 ## Version
 
-**0.2.7**
+**0.2.8**
 
 ## Features
 
@@ -60,3 +60,7 @@ The `New firmware available` binary sensor exposes:
 A failed external firmware check no longer forces the entity to become
 `unavailable`. Its firmware state becomes unknown until a successful check,
 while local HeatMeister functionality continues to work.
+
+## Startup resilience in 0.2.8
+
+Version 0.2.8 fixes the firmware coordinator startup error caused by a missing logger definition. The external firmware check is also isolated from local device setup, so a failure of the SDR Engineering endpoint cannot prevent the HeatMeister integration from starting.
