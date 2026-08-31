@@ -11,10 +11,23 @@
         "data_description": {
           "host": "For example: 192.168.68.116"
         }
+      },
+      "auth": {
+        "title": "HeatMeister authentication",
+        "description": "This HeatMeister is protected with HTTP Digest authentication. Enter the configured credentials.",
+        "data": {
+          "username": "Username",
+          "password": "Password"
+        },
+        "data_description": {
+          "username": "Default is admin.",
+          "password": "The access code/password configured on the HeatMeister."
+        }
       }
     },
     "error": {
-      "cannot_connect": "Unable to connect to the HeatMeister. Check the IP address and network connection."
+      "cannot_connect": "Unable to connect to the HeatMeister. Check the IP address and network connection.",
+      "invalid_auth": "Invalid username or password."
     },
     "abort": {
       "already_configured": "This HeatMeister is already configured."

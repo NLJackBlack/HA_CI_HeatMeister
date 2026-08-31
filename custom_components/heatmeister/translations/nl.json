@@ -11,10 +11,23 @@
         "data_description": {
           "host": "Bijvoorbeeld: 192.168.68.116"
         }
+      },
+      "auth": {
+        "title": "HeatMeister authenticatie",
+        "description": "Deze HeatMeister is beveiligd met HTTP Digest-authenticatie. Vul de ingestelde gegevens in.",
+        "data": {
+          "username": "Gebruikersnaam",
+          "password": "Wachtwoord / toegangscode"
+        },
+        "data_description": {
+          "username": "Standaard is admin.",
+          "password": "De toegangscode die op de HeatMeister is ingesteld."
+        }
       }
     },
     "error": {
-      "cannot_connect": "Kan geen verbinding maken met de HeatMeister. Controleer het IP-adres en de netwerkverbinding."
+      "cannot_connect": "Kan geen verbinding maken met de HeatMeister. Controleer het IP-adres en de netwerkverbinding.",
+      "invalid_auth": "Ongeldige gebruikersnaam of toegangscode."
     },
     "abort": {
       "already_configured": "Deze HeatMeister is al geconfigureerd."
