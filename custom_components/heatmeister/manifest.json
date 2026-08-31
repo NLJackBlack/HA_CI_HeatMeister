@@ -1,7 +1,7 @@
 {
   "domain": "heatmeister",
   "name": "HeatMeister",
-  "version": "0.2.8",
+  "version": "0.2.10",
   "documentation": "https://github.com/NLJackBlack/HA_CI_heatmeister",
   "config_flow": true,
   "integration_type": "device",

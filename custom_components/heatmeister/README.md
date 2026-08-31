@@ -4,7 +4,7 @@ Custom Home Assistant integration for SDR Engineering HeatMeister using its loca
 
 ## Version
 
-**0.2.8**
+**0.2.10**
 
 ## Features
 
@@ -64,3 +64,7 @@ while local HeatMeister functionality continues to work.
 ## Startup resilience in 0.2.8
 
 Version 0.2.8 fixes the firmware coordinator startup error caused by a missing logger definition. The external firmware check is also isolated from local device setup, so a failure of the SDR Engineering endpoint cannot prevent the HeatMeister integration from starting.
+
+## Password-protected devices (v0.2.10)
+
+HeatMeister devices protected with an access code are supported through **HTTP Digest Authentication**, matching the HeatMeister protocol. During setup, Home Assistant first validates `/getStatus` without credentials. If the device responds with `401 Unauthorized` and a Digest challenge, the wizard opens a second screen. The username defaults to `admin`; the password/access code is validated before the config entry is created. The stored credentials are then used for both `/getStatus` and `/setStatus`. Devices without authentication continue to work unchanged.

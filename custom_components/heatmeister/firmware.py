@@ -56,7 +56,7 @@ class HeatMeisterFirmwareCoordinator(DataUpdateCoordinator[str | None]):
 
     async def _async_update_data(self) -> str | None:
         headers = {
-            "User-Agent": "Mozilla/5.0 (Home Assistant HeatMeister/0.2.8)",
+            "User-Agent": "Mozilla/5.0 (Home Assistant HeatMeister/0.2.10)",
             "Accept": "text/plain,*/*",
         }
 

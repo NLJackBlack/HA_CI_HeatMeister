@@ -8,4 +8,4 @@ async def async_get_config_entry_diagnostics(hass: HomeAssistant, entry: ConfigE
     # Local network identifiers are unnecessary in exported diagnostics.
     for key in ("WIFI_TEST_IP", "WIFI_HOSTNAME"):
         data.pop(key, None)
-    return {"version": "0.2.6", "device_status": data}
+    return {"version": "0.2.10", "device_status": data}

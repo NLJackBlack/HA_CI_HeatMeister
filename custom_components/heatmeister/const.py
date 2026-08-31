@@ -5,3 +5,6 @@ PLATFORMS = ["sensor", "binary_sensor", "switch", "number", "select"]
 
 FIRMWARE_VERSION_URL = "https://www.sdr-engineering.nl/dl_firmware/heatbooster/latest/fwversion"
 FIRMWARE_CHECK_INTERVAL_HOURS = 12
+CONF_USERNAME = "username"
+CONF_PASSWORD = "password"
+DEFAULT_USERNAME = "admin"
