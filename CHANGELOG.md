@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.10
+
+- Added password/access-code support using HTTP Digest Authentication as used by HeatMeister firmware.
+- Setup now detects a `401 Unauthorized` Digest challenge after entering the IP address or hostname.
+- Added a second wizard step for username and password/access code, with username pre-filled as `admin`.
+- Credentials are validated against `/getStatus` before setup completes.
+- Digest authentication is used for both `/getStatus` and `/setStatus`.
+- Devices without authentication remain fully supported.
+- Added a masked password field in the setup wizard.
+- Updated diagnostics version and firmware-check User-Agent to 0.2.10.
+
 ## 0.2.8
 
 - Fixed startup failure caused by `_LOGGER` not being defined in `firmware.py`.
