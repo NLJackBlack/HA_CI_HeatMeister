@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- Upped the version number, since HACS thinks 0.2.10 is older than 0.2.8
+
 ## 0.2.10
 
 - Added password/access-code support using HTTP Digest Authentication as used by HeatMeister firmware.
